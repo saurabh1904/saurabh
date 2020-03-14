@@ -1,6 +1,3 @@
-Python 3.4.3 (v3.4.3:9b73f1c3e601, Feb 24 2015, 22:43:06) [MSC v.1600 32 bit (Intel)] on win32
-Type "copyright", "credits" or "license()" for more information.
->>> 
 Socket_server code:
 
 #Server side
@@ -8,15 +5,15 @@ import socket
 def server_program():
     # get the hostname
     host = socket.gethostname()
-    port = 5000        # initiate port no above 1024
+    port = 5000       
 
-    server_socket = socket.socket()       # get instance
+    server_socket = socket.socket()      
     # look closely. The bind() function takes tuple as argument
-    server_socket.bind((host, port))       # bind host address and port together
+    server_socket.bind((host, port))       
 
     # configure how many client the server can listen simultaneously
     server_socket.listen(2)
-    conn, address = server_socket.accept()       # accept new connection
+    conn, address = server_socket.accept()       
     print("Connection from: " + str(address))
     while True:
         # receive data stream. it won't accept data packet greater than 1024 bytes
@@ -26,9 +23,9 @@ def server_program():
             break
         print("from connected user: " + str(data))
         data = input(' -> ')
-        conn.send(data.encode())       # send data to the client
+        conn.send(data.encode())      
 
-    conn.close()        # close the connection
+    conn.close()        
 
 if __name__ == '__main__':
     server_program()
@@ -38,23 +35,23 @@ Socket_Client code:
 #Client side 
 import socket
 def client_program():
-    host = socket.gethostname()            # as both code is running on same pc
-    port = 5000         # socket server port number
+    host = socket.gethostname()           
+    port = 5000         
 
-    client_socket = socket.socket()        # instantiate
-    client_socket.connect((host, port))       # connect to the server
+    client_socket = socket.socket()       
+    client_socket.connect((host, port))      
 
-    message = input(" -> ")        # take input
+    message = input(" -> ")      
 
     while message.lower().strip() != 'bye':
-        client_socket.send(message.encode())         # send message
-        data = client_socket.recv(1024).decode()        # receive response
+        client_socket.send(message.encode())        
+        data = client_socket.recv(1024).decode()        
 
-        print('Received from server: ' + data)      # show in terminal
+        print('Received from server: ' + data)     
 
-        message = input(" -> ")      # again take input
+        message = input(" -> ")     
 
-    client_socket.close()      # close the connection
+    client_socket.close()     
 
 if __name__ == '__main__':
     client_program()
